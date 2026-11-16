@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>invoice-cn · 增值税发票开具工具</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="top no-print">
+  <h1>🧾 增值税发票开具工具 <span class="sub">分位精度计算 · 大写金额 · 版式预览</span></h1>
+</header>
+
+<main class="layout">
+  <section class="editor no-print">
+    <div class="card">
+      <h2>购买方信息</h2>
+      <div class="grid2">
+        <label>名称<input id="buyer-name" value="杭州云杉电子商务有限公司"></label>
+        <label>纳税人识别号<input id="buyer-taxno" value="91330106MA2B1XYZ9K"></label>
+        <label>地址电话<input id="buyer-addr" value="杭州市西湖区文三路 100 号 0571-88886666"></label>
+        <label>开户行及账号<input id="buyer-bank" value="中国工商银行杭州分行 1202024409900012345"></label>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>销售方信息</h2>
+      <div class="grid2">
+        <label>名称<input id="seller-name" value="深圳市远航数码科技有限公司"></label>
+        <label>纳税人识别号<input id="seller-taxno" value="91440300MA5F8QW21X"></label>
+        <label>地址电话<input id="seller-addr" value="深圳市南山区科技园南区 12 栋 0755-26667777"></label>
+        <label>开户行及账号<input id="seller-bank" value="招商银行深圳分行 755901234567890"></label>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>商品明细 <button id="btn-add-line" class="btn sm">+ 添加一行</button></h2>
+      <table class="edit-table">
+        <thead>
+          <tr>
+            <th>商品名称</th><th>规格</th><th>单位</th>
+            <th>数量</th><th>单价(不含税)</th><th>税率</th><th></th>
+          </tr>
+        </thead>
+        <tbody id="lines-body"></tbody>
+      </table>
+      <div id="errors" class="errors"></div>
+      <div class="actions">
+        <button id="btn-preview" class="btn primary">生成发票预览</button>
+        <button id="btn-print" class="btn">🖨 打印</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="preview">
+    <div class="invoice-paper" id="invoice-paper">
+      <div class="inv-title">电子发票（增值税专用发票）</div>
+      <div class="inv-head">
+        <div>发票号码：<b id="inv-no">26317000000123456</b></div>
+        <div>开票日期：<b id="inv-date"></b></div>
+      </div>
+      <table class="inv-parties">
+        <tr>
+          <th rowspan="2" class="side">购买方</th>
+          <td class="k">名　　称：</td><td id="p-buyer-name">—</td>
+        </tr>
+        <tr>
+          <td class="k">统一社会信用代码/纳税人识别号：</td><td id="p-buyer-taxno">—</td>
+        </tr>
+        <tr>
+          <th rowspan="2" class="side">销售方</th>
+          <td class="k">名　　称：</td><td id="p-seller-name">—</td>
+        </tr>
+        <tr>
+          <td class="k">统一社会信用代码/纳税人识别号：</td><td id="p-seller-taxno">—</td>
+        </tr>
+      </table>
+
+      <table class="inv-lines">
+        <thead>
+          <tr>
+            <th>项目名称</th><th>规格型号</th><th>单　位</th><th>数　量</th>
+            <th>单　价</th><th>金　额</th><th>税率</th><th>税　额</th>
+          </tr>
+        </thead>
+        <tbody id="inv-lines"></tbody>
+        <tfoot>
+          <tr>
+            <td colspan="5" class="sum-k">合　　计</td>
+            <td id="inv-sum-amount">—</td><td></td><td id="inv-sum-tax">—</td>
+          </tr>
+          <tr>
+            <td colspan="2" class="sum-k">价税合计（大写）</td>
+            <td colspan="4" id="inv-sum-upper" class="upper">—</td>
+            <td class="sum-k">（小写）</td>
+            <td id="inv-sum-total">—</td>
+          </tr>
+        </tfoot>
+      </table>
+
+      <div class="inv-foot">
+        <div>收款人：<span id="inv-payee">张晓</span></div>
+        <div>复核：<span>李婷</span></div>
+        <div>开票人：<span>王磊</span></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script src="invoice.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
